@@ -25,7 +25,7 @@ function Main({ activeNote, onUpdateNote }) {
                 />
                 <textarea
                     id="body"
-                    placeholder="Get started on your Soma...."
+                    placeholder="New Note"
                     value={activeNote.body}
                     onChange={(e) => onEditField("body", e.target.value)}
 

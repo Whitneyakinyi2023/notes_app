@@ -1,156 +1,111 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css");
+/* App.css */
 
-* {
-  box-sizing: border-box;
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: hsl(240, 16%, 47%);
+  font-family: Arial, sans-serif;
+  position: relative;
 }
 
-
-/* GLOBAL STYLES */
-
-body,
-.App {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+button.toggle-button,
+button.logout-button {
+  position: bottom;
+  top: 20px;
+  padding: 10px 20px;
   font-size: 16px;
-  background: url(https://www.toptal.com/designers/subtlepatterns/patterns/lightpaperfibers.png);
-}
-
-button {
-  background: none;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  font-size: inherit;
-  font-family: inherit;
-  cursor: pointer;
-  color: #08c;
-}
-
-button:hover {
-  color: #04c;
-}
-
-.App {
-  display: flex;
-}
-
-/* SIDEBAR STYLES */
-
-.app-sidebar {
-  width: 30%;
-  height: 100vh;
-  border-right: 1px solid #ddd;
-}
-
-.app-sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 25px;
-}
-
-.app-sidebar-header h1 {
-  margin: 0;
-}
-
-.app-sidebar-notes {
-  height: calc(100vh - 78px);
-  overflow-y: scroll;
-}
-
-.app-sidebar-note {
-  padding: 25px;
-  cursor: pointer;
-}
-
-.sidebar-note-title {
-  display: flex;
-  justify-content: space-between;
-}
-
-.app-sidebar-note button {
-  color: crimson;
-}
-
-.app-sidebar-note p {
-  margin: 10px 0;
-}
-
-.app-sidebar-note small {
-  display: block;
-  color: #999;
-}
-
-.app-sidebar-note:hover {
-  background: #ddd;
-}
-
-.app-sidebar-note.active,
-.app-sidebar-note.active small {
-  background: #08c;
+  background-color: #007bff;
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-/* NOTE EDITOR/PREVIEW (MAIN) STYLES */
-
-.app-main {
-  width: 70%;
-  height: 100vh;
+button.toggle-button {
+  right: 20px;
 }
 
-.app-main-note-edit,
-.app-main-note-preview {
-  height: 50vh;
+button.logout-button {
+  position: bottom;
+  right: 150px;
 }
 
-.no-active-note {
-  width: 70%;
-  height: 100vh;
-  line-height: 100vh;
-  text-align: center;
-  font-size: 2rem;
-  color: #999;
+button.toggle-button:hover,
+button.logout-button:hover {
+  background-color: #0056b3;
 }
 
-/* Editing */
-.app-main-note-edit {
-  padding: 25px;
+.NotesContainer {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  width: 50%;
+  height: calc(100% - 60px);
 }
 
-.app-main-note-edit input,
-textarea {
-  display: block;
-  border: 1px solid #ddd;
-  margin-bottom: 20px;
+.Sidebar,
+.Main {
+  flex: 1;
+  background-color: #a7a6f0;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: right;
+}
+
+.Signup,
+.Login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Signup form,
+.Login form {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: calc(50vh - 130px);
+}
+
+.Signup div,
+.Login div {
+  margin-bottom: 20px;
+}
+
+.Signup label,
+.Login label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.Signup input,
+.Login input {
   padding: 10px;
-  resize: none;
-  font-size: inherit;
-  font-family: inherit;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: calc(100% - 22px);
 }
 
-.app-main-note-edit input {
-  height: 50px;
-  font-size: 2rem;
+.Signup button,
+.Login button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-/* Preview */
-.app-main-note-preview {
-  border-top: 1px solid #ddd;
-  overflow-y: scroll;
-  background: rgba(0, 0, 0, 0.02);
-}
-
-.preview-title {
-  padding: 25px 25px 0 25px;
-  margin: 0;
-}
-
-.markdown-preview {
-  padding: 0 25px 25px 25px;
-  font-size: 1rem;
-  line-height: 2rem;
+.Signup button:hover,
+.Login button:hover {
+  background-color: #0056b3;
 }
