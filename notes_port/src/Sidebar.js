@@ -5,13 +5,13 @@ function Sidebar({
     activeNote,
     setActiveNote,
 }) {
+    const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
 
-    const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified)
     return (
         <div className="app-sidebar">
             <div className="app-sidebar-header">
                 <h1>Your Notes</h1>
-                <button onClick={onAddNote}>Add</button>
+                <button onClick={onAddNote} className="add-button">Add</button>
             </div>
             <div className="app-sidebar-notes">
                 {sortedNotes.map((note) => (
@@ -22,7 +22,7 @@ function Sidebar({
                     >
                         <div className="sidebar-note-title">
                             <strong>{note.title}</strong>
-                            <button onClick={(e) => { e.stopPropagation(); onDeleteNote(note.id); }}>Delete</button>
+                            <button onClick={(e) => { e.stopPropagation(); onDeleteNote(note.id); }} className="delete-button">Delete</button>
                         </div>
                         <p>{note.body && note.body.substr(0, 100) + "..."}</p>
                         <small className="note-meta">

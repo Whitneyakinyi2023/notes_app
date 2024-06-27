@@ -1,0 +1,60 @@
+.Signup {
+    /* Styles for the main Signup container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.Signup h2 {
+    /* Styles for the Signup heading */
+    margin-bottom: 20px;
+}
+
+.Signup form {
+    /* Styles for the signup form */
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.Signup .form-group {
+    /* Styles for individual form groups */
+    margin-bottom: 15px;
+}
+
+.Signup .form-control {
+    /* Styles for form input fields */
+    height: 40px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.Signup .form-control:focus {
+    /* Styles for focused form input fields */
+    border-color: #80bdff;
+    outline: none;
+}
+
+.Signup .alert {
+    /* Styles for the error alert */
+    margin-bottom: 10px;
+}
+
+.Signup button {
+    /* Styles for the signup button */
+    width: 100%;
+    height: 40px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.Signup button:hover {
+    /* Styles for button hover effect */
+    background-color: #0069d9;
+}

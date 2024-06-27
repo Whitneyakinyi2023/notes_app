@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Login.css'; // Custom styles if needed
+import './Login.css'; // Custom styles
 import { Button, Form, Container, Row, Col, Image } from 'react-bootstrap';
 
 const Login = ({ onLogin }) => {
@@ -16,8 +16,10 @@ const Login = ({ onLogin }) => {
         <Container fluid className="login-container d-flex flex-column justify-content-center align-items-center">
             <Row className="justify-content-center">
                 <Col xs={12} md={6} lg={4} className="login-box p-4 shadow-sm rounded">
-                    <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfxBZuYddfI0M9SBxZQpmgwoN4LVyN60t_hA&s" alt="Logo" className="logo mb-4" fluid />
-                    <h1 className="tagline text-primary mb-4">SomaSoma</h1>
+                    <div className="text-center mb-4">
+                        <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfxBZuYddfI0M9SBxZQpmgwoN4LVyN60t_hA&s" alt="Logo" className="logo mb-3" fluid />
+                        <h1 className="tagline text-primary mb-3">SomaSoma</h1>
+                    </div>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formEmail">
                             <Form.Label>Email</Form.Label>
@@ -45,7 +47,7 @@ const Login = ({ onLogin }) => {
                     </Form>
                 </Col>
             </Row>
-            <footer className="footer text-muted mt-5">
+            <footer className="footer text-muted mt-5 text-center">
                 Enhance your learning experience with integrated tools and seamless functionalities.
             </footer>
         </Container>

@@ -1,45 +1,74 @@
 import React, { useState } from 'react';
+import { Alert, Button, Form } from 'react-bootstrap';
+import './Signup.css'; // Import custom CSS for styling (optional)
 
 function Signup({ onSignup }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        confirmPassword: '',
+    });
+    const [error, setError] = useState('');
 
-    const handleSignup = (e) => {
-        e.preventDefault();
-        // Mock signup logic (replace with your backend integration)
-        const newUser = {
-            email,
-            password
-        };
-        console.log("Signed up:", newUser);
-        // Simulate signup success
-        onSignup();
+    const handleChange = (event) => {
+        setFormData({ ...formData, [event.target.name]: event.target.value });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const { email, password, confirmPassword } = formData;
+
+        if (password !== confirmPassword) {
+            setError('Passwords do not match');
+            return;
+        }
+
+        setError('');
+        onSignup(email, password); // Assuming onSignup takes only email & password
     };
 
     return (
         <div className="Signup">
             <h2>Sign Up</h2>
-            <form onSubmit={handleSignup}>
-                <div>
-                    <label>Email:</label>
-                    <input
+            <Form onSubmit={handleSubmit}>
+                {error && <Alert variant="danger">{error}</Alert>}
+                <Form.Group controlId="formEmail">
+                    <Form.Label>Email address:</Form.Label>
+                    <Form.Control
                         type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        name="email" // Use name attribute for form data access
+                        value={formData.email}
+                        onChange={handleChange}
                         required
+                        placeholder="Enter your email"
                     />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
+                </Form.Group>
+                <Form.Group controlId="formPassword">
+                    <Form.Label>Password:</Form.Label>
+                    <Form.Control
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
                         required
+                        placeholder="Enter your password"
                     />
-                </div>
-                <button type="submit">Sign Up</button>
-            </form>
+                </Form.Group>
+                <Form.Group controlId="formConfirmPassword">
+                    <Form.Label>Confirm Password:</Form.Label>
+                    <Form.Control
+                        type="password"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        required
+                        placeholder="Confirm your password"
+                    />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Sign Up
+                </Button>
+            </Form>
         </div>
     );
 }
