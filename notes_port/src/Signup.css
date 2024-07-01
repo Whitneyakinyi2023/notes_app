@@ -1,9 +1,14 @@
+body {
+    background-image: url(https://img.freepik.com/premium-photo/black-3d-illustration-back-school-product-display-podium-stand-side-with-pencils-books_611870-3050.jpg?w=740);
+}
+
 .Signup {
     /* Styles for the main Signup container */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+
 }
 
 .Signup h2 {

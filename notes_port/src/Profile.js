@@ -54,11 +54,32 @@ const Profile = () => {
             </div>
             <div className="activity-overview">
                 <h3>Recent Activity</h3>
-                {/* Display recent activities here */}
+                <ul>
+                    <li>Updated profile picture</li>
+                    <li>Changed password</li>
+                    <li>Joined a new group: React Developers</li>
+                    <li>Posted a new note</li>
+                </ul>
             </div>
             <div className="preferences">
                 <h3>Preferences</h3>
-                {/* Theme and Language Settings */}
+                <div className="preferences-field">
+                    <label>Theme:</label>
+                    <select>
+                        <option>Light</option>
+                        <option>Dark</option>
+                        <option>System Default</option>
+                    </select>
+                </div>
+                <div className="preferences-field">
+                    <label>Language:</label>
+                    <select>
+                        <option>English</option>
+                        <option>Spanish</option>
+                        <option>French</option>
+                        <option>German</option>
+                    </select>
+                </div>
             </div>
             <button className="logout-button">Logout</button>
         </div>

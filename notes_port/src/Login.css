@@ -5,10 +5,10 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    background-image: url(https://img.freepik.com/premium-photo/black-3d-illustration-back-school-product-display-podium-stand-side-with-pencils-books_611870-3050.jpg?w=740);
 }
 
 .login-container {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
     color: #fff;
     padding: 20px;
     width: 100%;
