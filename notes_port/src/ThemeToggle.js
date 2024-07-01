@@ -1,4 +1,3 @@
-// ThemeToggle.js
 import React from 'react';
 import { useTheme } from './ThemeContext';
 

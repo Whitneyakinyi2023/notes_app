@@ -1,49 +1,158 @@
 /* General Styles */
-body.default {
+body {
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
   margin: 0;
   padding: 0;
 }
 
-body.dark {
-  background-color: #222;
-  color: #fff;
-}
-
-body.light {
-  background-color: #fff;
-  color: #000;
-}
-
 /* Navbar Styles */
-.nav.default {
+.nav {
   background-color: #343a40;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
 }
 
-.nav.dark {
-  background-color: #121212;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.nav.light {
-  background-color: #f8f9fa;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas,
+    'Courier New', monospace;
 }
 
-.nav.default a {
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dark-mode {
+  background-color: black;
+}
+
+.dark-mode h1 {
+  color: white;
+}
+
+.container {
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  min-height: 100vh;
+}
+
+.notes-list {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill,
+      minmax(250px, 1fr));
+}
+
+.note.new {
+  background-color: #67d7cc;
+}
+
+textarea {
+  border: none;
+  resize: none;
+  background-color: #67d7cc;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.save {
+  background-color: #e1e1e1;
+  border: none;
+  border-radius: 15px;
+  padding: 5px 10px 5px 10px;
+}
+
+.save:hover {
+  background-color: #ededed;
+  cursor: pointer;
+}
+
+.note {
+  background-color: #fef68a;
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  white-space: pre-wrap;
+}
+
+.note-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete-icon {
+  cursor: pointer;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  background-color: rgb(233, 233, 233);
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 1.5em;
+}
+
+.search input {
+  border: none;
+  background-color: rgb(233, 233, 233);
+  width: 100%;
+}
+
+.search input:focus {
+  outline: none;
+}
+
+:root {
+  --header-bg-color: #f1f1f1;
+  --header-text-color: #333;
+  --button-bg-color: #007bff;
+  --button-text-color: #fff;
+  --button-hover-bg-color: #0056b3;
+  --border-color: #ddd;
+}
+
+body.dark-mode {
+  --header-bg-color: #333;
+  --header-text-color: #f1f1f1;
+  --button-bg-color: #444;
+  --button-text-color: #f1f1f1;
+  --button-hover-bg-color: #222;
+  --border-color: #555;
+}
+
+.nav a {
   color: #f8f9fa;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 16px;
 }
 
-.nav.dark a {
-  color: #ddd;
-}
-
-.nav.light a {
-  color: #343a40;
-}
-
-.nav.default a:hover,
-.nav.dark a:hover,
-.nav.light a:hover {
+.nav a:hover {
   background-color: #495057;
   color: white;
 }
@@ -51,18 +160,7 @@ body.light {
 .nav .site-title {
   font-size: 24px;
   font-weight: bold;
-}
-
-.nav.default .site-title {
   color: #f8f9fa;
-}
-
-.nav.dark .site-title {
-  color: #ddd;
-}
-
-.nav.light .site-title {
-  color: #343a40;
 }
 
 .nav ul {
@@ -87,59 +185,179 @@ body.light {
 .App .toggle-pdf-button {
   margin: 10px;
   padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.App.default .toggle-button,
-.App.default .logout-button,
-.App.default .toggle-pdf-button {
-  background-color: #007bff;
-  color: white;
-}
-
-.App.dark .toggle-button,
-.App.dark .logout-button,
-.App.dark .toggle-pdf-button {
-  background-color: #6c757d;
-  color: white;
-}
-
-.App.light .toggle-button,
-.App.light .logout-button,
-.App.light .toggle-pdf-button {
-  background-color: #007bff;
-  color: white;
-}
-
-.App.default .toggle-button:hover,
-.App.default .logout-button:hover,
-.App.default .toggle-pdf-button:hover,
-.App.light .toggle-button:hover,
-.App.light .logout-button:hover,
-.App.light .toggle-pdf-button:hover {
+.App .toggle-button:hover,
+.App .logout-button:hover,
+.App .toggle-pdf-button:hover {
   background-color: #0056b3;
 }
 
-.App.dark .toggle-button:hover,
-.App.dark .logout-button:hover,
-.App.dark .toggle-pdf-button:hover {
-  background-color: #495057;
-}
-
-.App.default .NotesContainer,
-.App.light .NotesContainer,
-.App.default .PDFViewerContainer,
-.App.light .PDFViewerContainer {
+.App .NotesContainer,
+.App .PDFViewerContainer {
+  margin: 20px auto;
+  max-width: 800px;
   background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
-.App.dark .NotesContainer,
-.App.dark .PDFViewerContainer {
-  background: #333;
+/* Form Styles */
+.form-group {
+  margin: 20px auto;
+  max-width: 400px;
+  text-align: left;
+}
+
+.form-group input[type="file"] {
+  margin-bottom: 10px;
+}
+
+.form-group button {
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-group button:hover {
+  background-color: #218838;
+}
+
+/* Placeholder for YouTube API Integration */
+.youtube-api {
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+/* Alert Styles */
+.alert-secondary {
+  background-color: #f8f9fa;
+  color: #343a40;
+  border: 1px solid #d6d8db;
+}
+
+/* Custom Button Styles */
+.custom-button {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-button:hover {
+  background-color: #138496;
+}
+
+/* Switch Button Styles */
+.switch-button {
+  background-color: #ffc107;
+  color: #343a40;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.switch-button:hover {
+  background-color: #e0a800;
+}
+
+/* Dark Theme Styles */
+body.dark-mode {
+  background-color: #222;
   color: #fff;
 }
 
-/* Add other styles as needed */
+.nav.dark-mode {
+  background-color: #121212;
+}
+
+.nav.dark-mode a {
+  color: #ddd;
+}
+
+.nav.dark-mode a:hover {
+  background-color: #333;
+}
+
+.App.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
+.App.dark-mode .toggle-button,
+.App.dark-mode .logout-button,
+.App.dark-mode .toggle-pdf-button {
+  background-color: #6c757d;
+}
+
+.App.dark-mode .toggle-button:hover,
+.App.dark-mode .logout-button:hover,
+.App.dark-mode .toggle-pdf-button:hover {
+  background-color: #495057;
+}
+
+.App.dark-mode .NotesContainer,
+.App.dark-mode .PDFViewerContainer {
+  background: #444;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.form-group.dark-mode {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.form-group.dark-mode input[type="file"] {
+  background-color: #444;
+  color: #fff;
+}
+
+.form-group.dark-mode button {
+  background-color: #6c757d;
+}
+
+.form-group.dark-mode button:hover {
+  background-color: #495057;
+}
+
+.alert-secondary.dark-mode {
+  background-color: #555;
+  color: #ddd;
+  border: 1px solid #777;
+}
+
+.custom-button.dark-mode {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.custom-button.dark-mode:hover {
+  background-color: #138496;
+}
+
+.switch-button.dark-mode {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.switch-button.dark-mode:hover {
+  background-color: #e0a800;
+}

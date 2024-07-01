@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.toggle-mode-button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-mode-button:hover {
+    background-color: var(--button-hover-bg-color);
+}

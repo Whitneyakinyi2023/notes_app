@@ -1,0 +1,44 @@
+/* src/LandingPage.css */
+.landing-page {
+    text-align: center;
+    padding: 2rem;
+}
+
+.landing-header {
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.landing-header h1 {
+    margin-bottom: 1rem;
+}
+
+.landing-header p {
+    margin-bottom: 2rem;
+}
+
+.landing-header button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.landing-header button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+.project-details,
+.footer {
+    margin: 2rem 0;
+}
+
+.footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1rem 0;
+}

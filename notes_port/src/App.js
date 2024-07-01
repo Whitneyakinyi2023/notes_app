@@ -1,22 +1,48 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import uuid from 'react-uuid';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 import './App.css';
-import Sidebar from "./Sidebar";
-import Main from "./Main";
-import Signup from "./Signup";
-import Login from "./Login";
+import Signup from './Signup';
+import Login from './Login';
 import PDFViewer from './PDFViewer';
-import Profile from './Profile'; // Assuming you have a Profile component
-import Navbar from './Navbar'; // Import the new Navbar component
-import { Button, Alert } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./Login.css";
+import Navbar from './Navbar';
+import { Button, Alert } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Login.css';
 import ThemeToggle from './ThemeToggle';
 import { ThemeProvider } from './ThemeContext';
+import NotesList from './NotesList';
+import Search from './Search';
+import Header from './Header';
+import Profile from './Profile';
+import LandingPage from './LandingPage';
 
-function App() {
-  const [notes, setNotes] = useState(JSON.parse(localStorage.getItem("notes")) || []);
+const App = () => {
+  const [notes, setNotes] = useState([
+    {
+      id: nanoid(),
+      text: 'This is my first note!',
+      date: '15/04/2021',
+    },
+    {
+      id: nanoid(),
+      text: 'This is my second note!',
+      date: '21/04/2021',
+    },
+    {
+      id: nanoid(),
+      text: 'This is my third note!',
+      date: '28/04/2021',
+    },
+    {
+      id: nanoid(),
+      text: 'This is my new note!',
+      date: '30/04/2021',
+    },
+  ]);
+
+  const [searchText, setSearchText] = useState('');
+  const [darkMode, setDarkMode] = useState(false);
   const [activeNote, setActiveNote] = useState(null);
   const [showNotes, setShowNotes] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -24,36 +50,28 @@ function App() {
   const [showPDFViewer, setShowPDFViewer] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify(notes));
+    const savedNotes = JSON.parse(localStorage.getItem('react-notes-app-data'));
+    if (savedNotes) {
+      setNotes(savedNotes);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('react-notes-app-data', JSON.stringify(notes));
   }, [notes]);
 
-  const onAddNote = () => {
+  const addNote = (text) => {
+    const date = new Date();
     const newNote = {
-      id: uuid(),
-      title: "New Note",
-      body: "",
-      lastModified: Date.now(),
+      id: nanoid(),
+      text,
+      date: date.toLocaleDateString(),
     };
-    setNotes([newNote, ...notes]);
-    setActiveNote(newNote.id);
+    setNotes((prevNotes) => [...prevNotes, newNote]);
   };
 
-  const onUpdateNote = (updatedNote) => {
-    const updatedNotes = notes.map((note) =>
-      note.id === activeNote ? updatedNote : note
-    );
-    setNotes(updatedNotes);
-  };
-
-  const onDeleteNote = (idToDelete) => {
-    setNotes(notes.filter((note) => note.id !== idToDelete));
-    if (activeNote === idToDelete) {
-      setActiveNote(null);
-    }
-  };
-
-  const getActiveNote = () => {
-    return notes.find((note) => note.id === activeNote);
+  const deleteNote = (id) => {
+    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
   };
 
   const handleSignup = () => {
@@ -75,60 +93,29 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
-        <div className={`App`}>
-          <Navbar />
-          {!isAuthenticated ? (
-            <>
-              {showSignup ? (
-                <Signup onSignup={handleSignup} />
-              ) : (
-                <Login onLogin={handleLogin} />
-              )}
-              <Alert variant='secondary'>Why focused study?</Alert>
-              <Button className="custom-button">SomaSoma</Button>
-              <button className="switch-button" onClick={() => setShowSignup(!showSignup)}>
-                {showSignup ? "Switch to Login" : "Switch to Signup"}
-              </button>
-            </>
-          ) : (
-            <>
-              <button className="toggle-button" onClick={() => setShowNotes(!showNotes)}>
-                {showNotes ? "Hide Notes" : "Show Notes"}
-              </button>
-              <button className="logout-button" onClick={handleLogout}>Logout</button>
-              <button className="toggle-pdf-button" onClick={() => setShowPDFViewer(!showPDFViewer)}>
-                {showPDFViewer ? "Hide PDF Viewer" : "Show PDF Viewer"}
-              </button>
-              {showNotes && (
-                <div className="NotesContainer">
-                  <Sidebar
-                    notes={notes}
-                    onAddNote={onAddNote}
-                    onDeleteNote={onDeleteNote}
-                    activeNote={activeNote}
-                    setActiveNote={setActiveNote}
-                  />
-                  <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
-                </div>
-              )}
-              {showPDFViewer && (
-                <div className="PDFViewerContainer">
-                  <PDFViewer />
-                </div>
-              )}
-            </>
-          )}
-          <div className="youtube-api">
-            {/* Placeholder for YouTube API Integration */}
-          </div>
-          <div className="theme-selector">
-            <h3>Select Theme:</h3>
-            <ThemeToggle /> {/* Render the ThemeToggle component here */}
+        <div className={darkMode ? 'dark-mode' : ''}>
+          <div className='container'>
+            <Navbar isAuthenticated={isAuthenticated} />
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<Login onLogin={handleLogin} />} />
+              <Route path="/signup" element={<Signup onSignup={handleSignup} />} />
+              <Route path="/notes" element={<NotesList notes={notes} handleAddNote={addNote} handleDeleteNote={deleteNote} />} />
+              <Route path="/pdf-viewer" element={<PDFViewer />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/logout" element={<button onClick={handleLogout}>Logout</button>} />
+            </Routes>
+            <div className="youtube-api">
+              {/* Placeholder for YouTube API Integration */}
+            </div>
+            <div className="theme-selector">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </Router>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

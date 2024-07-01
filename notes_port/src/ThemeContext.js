@@ -1,14 +1,18 @@
-// ThemeContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useCallback } from 'react';
 
-const ThemeContext = createContext();
+// Create a context with a default value
+const ThemeContext = createContext({
+    theme: 'default',
+    toggleTheme: () => { },
+});
 
 export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState('default');
 
-    const toggleTheme = () => {
+    // useCallback to memoize the toggleTheme function and prevent unnecessary re-renders
+    const toggleTheme = useCallback(() => {
         setTheme((prevTheme) => (prevTheme === 'default' ? 'dark' : 'default'));
-    };
+    }, []);
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -17,4 +21,11 @@ export const ThemeProvider = ({ children }) => {
     );
 };
 
-export const useTheme = () => useContext(ThemeContext);
+// Custom hook to use the ThemeContext
+export const useTheme = () => {
+    const context = useContext(ThemeContext);
+    if (!context) {
+        throw new Error('useTheme must be used within a ThemeProvider');
+    }
+    return context;
+};
