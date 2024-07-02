@@ -1,65 +1,42 @@
-body {
-    background-image: url(https://img.freepik.com/premium-photo/black-3d-illustration-back-school-product-display-podium-stand-side-with-pencils-books_611870-3050.jpg?w=740);
-}
-
-.Signup {
-    /* Styles for the main Signup container */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.signup-container {
+    width: 300px;
+    margin: 0 auto;
     padding: 20px;
-
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.Signup h2 {
-    /* Styles for the Signup heading */
+.signup-container h2 {
+    text-align: center;
     margin-bottom: 20px;
 }
 
-.Signup form {
-    /* Styles for the signup form */
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-}
-
-.Signup .form-group {
-    /* Styles for individual form groups */
+.form-group {
     margin-bottom: 15px;
 }
 
-.Signup .form-control {
-    /* Styles for form input fields */
-    height: 40px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-.Signup .form-control:focus {
-    /* Styles for focused form input fields */
-    border-color: #80bdff;
-    outline: none;
-}
-
-.Signup .alert {
-    /* Styles for the error alert */
-    margin-bottom: 10px;
-}
-
-.Signup button {
-    /* Styles for the signup button */
+.form-group input {
     width: 100%;
-    height: 40px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
-.Signup button:hover {
-    /* Styles for button hover effect */
-    background-color: #0069d9;
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
 }

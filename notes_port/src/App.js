@@ -12,10 +12,11 @@ import { ThemeProvider } from './ThemeContext';
 import NotesList from './NotesList';
 import Profile from './Profile';
 import LandingPage from './LandingPage';
+import AddNote from './AddNote';
 
-const Home = ({ isAuthenticated }) => {
+const Home = ({ isAuthenticated, notes, deleteNote }) => {
   if (isAuthenticated) {
-    return <NotesList />;
+    return <NotesList notes={notes} deleteNote={deleteNote} />;
   } else {
     return <LandingPage />;
   }
@@ -25,23 +26,31 @@ const App = () => {
   const [notes, setNotes] = useState([
     {
       id: nanoid(),
+      title: 'First Note',
       text: 'This is my first note!',
-      date: '15/04/2021',
+      date: '2021-04-15',
+      time: '10:00 AM',
     },
     {
       id: nanoid(),
+      title: 'Second Note',
       text: 'This is my second note!',
-      date: '21/04/2021',
+      date: '2021-04-21',
+      time: '3:30 PM',
     },
     {
       id: nanoid(),
+      title: 'Third Note',
       text: 'This is my third note!',
-      date: '28/04/2021',
+      date: '2021-04-28',
+      time: '12:15 PM',
     },
     {
       id: nanoid(),
+      title: 'New Note',
       text: 'This is my new note!',
-      date: '30/04/2021',
+      date: '2021-04-30',
+      time: '9:45 AM',
     },
   ]);
 
@@ -58,18 +67,21 @@ const App = () => {
     localStorage.setItem('react-notes-app-data', JSON.stringify(notes));
   }, [notes]);
 
-  const addNote = (text) => {
-    const date = new Date();
+  const addNote = (title, text) => {
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.toLocaleString('en-US', { weekday: 'long' })}, ${currentDate.toLocaleString('en-US', { month: 'long' })} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
     const newNote = {
       id: nanoid(),
+      title,
       text,
-      date: date.toLocaleDateString(),
+      date: formattedDate,
+      time: currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
     setNotes((prevNotes) => [...prevNotes, newNote]);
   };
 
-  const deleteNote = (id) => {
-    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+  const deleteNote = (idToDelete) => {
+    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== idToDelete));
   };
 
   const handleSignup = () => {
@@ -90,7 +102,7 @@ const App = () => {
         <div className='container'>
           <Navbar isAuthenticated={isAuthenticated} />
           <Routes>
-            <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
+            <Route path="/" element={<Home isAuthenticated={isAuthenticated} notes={notes} deleteNote={deleteNote} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/signup" element={<Signup onSignup={handleSignup} />} />
             <Route path="/pdf-viewer" element={<PDFViewer />} />
@@ -98,11 +110,16 @@ const App = () => {
             <Route path="/logout" element={<button onClick={handleLogout}>Logout</button>} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
+          <div className="add-note-container">
+            <AddNote handleAddNote={addNote} />
+          </div>
+          {/* Remove redundant NotesList here */}
           <div className="youtube-api">
             {/* Placeholder for YouTube API Integration */}
           </div>
         </div>
       </Router>
+      {/* Keep NotesList rendered inside Home component */}
     </ThemeProvider>
   );
 };

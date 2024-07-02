@@ -36,7 +36,7 @@ function PDFViewer() {
     return (
         <div className="container">
             <form onSubmit={handleSubmit} className="form-group">
-                <input type="file" className="form-control" onChange={handleChange} />
+                <input type="file" className="form-control" onChange={handleChange} accept=".pdf" />
                 <button type="submit" className="btn btn-success mt-2">View PDF</button>
             </form>
             <h2>View PDF</h2>

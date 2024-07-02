@@ -1,25 +1,26 @@
-import Note from './Note';
-import AddNote from './AddNote';
+import React from 'react';
+import { Button, Badge } from 'react-bootstrap'; // Import Button and Badge from react-bootstrap (if used)
 
-const List = ({ notes, handleAddNote, handleDeleteNote }) => {
+const NotesList = ({ notes, deleteNote }) => {
     return (
-        <div className='notes-list'>
+        <div className="notes-list">
             {notes.length > 0 ? (
                 notes.map((note) => (
-                    <Note
-                        key={note.id} // Added key prop for better performance
-                        id={note.id}
-                        text={note.text}
-                        date={note.date}
-                        handleDeleteNote={handleDeleteNote}
-                    />
+                    <div key={note.id} className="note">
+                        <h3>{note.title}</h3>
+                        <p>{note.text}</p>
+                        {note.date && <p>Date: {note.date}</p>}
+                        {note.time && <p>Time: {note.time}</p>}
+                        <Button variant="danger" onClick={() => deleteNote(note.id)}>Delete</Button>
+                    </div>
                 ))
             ) : (
-                <div className='no-notes'>No notes available. Add your first note!</div>
+                <div className="empty-notes">
+                    <Badge variant="info">No notes available</Badge>
+                </div>
             )}
-            <AddNote handleAddNote={handleAddNote} />
         </div>
     );
 };
 
-export default List;
+export default NotesList;
