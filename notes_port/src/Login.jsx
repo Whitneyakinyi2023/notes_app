@@ -1,24 +1,36 @@
 import React, { useState } from 'react';
 import './Login.css'; // Custom styles
+import { auth } from './firebase'; // Import auth from your firebase setup
 
 const Login = ({ onLogin }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [resetEmail, setResetEmail] = useState("");
+    const [resetSuccess, setResetSuccess] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!email || !password) {
             setError("All fields are required.");
             return;
         }
 
-        // Simulate login
-        const isLoginSuccessful = true; // Replace with actual authentication logic
-        if (isLoginSuccessful) {
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
             onLogin();
-        } else {
+        } catch (err) {
             setError("Invalid email or password.");
+        }
+    };
+
+    const handleResetPassword = async () => {
+        try {
+            await auth.sendPasswordResetEmail(resetEmail);
+            setResetSuccess(true);
+            setError("");
+        } catch (err) {
+            setError(err.message);
         }
     };
 
@@ -53,6 +65,17 @@ const Login = ({ onLogin }) => {
                     </div>
                     <button type="submit" className="submit-button">Login</button>
                 </form>
+                <div className="password-reset">
+                    <input
+                        type="email"
+                        placeholder="Enter your email to reset password"
+                        value={resetEmail}
+                        onChange={(e) => setResetEmail(e.target.value)}
+                        required
+                    />
+                    <button onClick={handleResetPassword} className="reset-button">Reset Password</button>
+                    {resetSuccess && <p>Password reset email sent successfully. Check your inbox.</p>}
+                </div>
             </div>
             <footer className="footer">
                 Enhance your learning experience with integrated tools and seamless functionalities.

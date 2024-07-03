@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 const AddNote = ({ handleAddNote }) => {
@@ -29,6 +28,12 @@ const AddNote = ({ handleAddNote }) => {
 
     const handleFormat = (format) => {
         // Implement formatting logic based on 'format' parameter
+        // Example: Modify noteText based on format (bold, italic, underline, bullet)
+    };
+
+    const handleClear = () => {
+        setNoteTitle('');
+        setNoteText('');
     };
 
     return (
@@ -51,6 +56,7 @@ const AddNote = ({ handleAddNote }) => {
                 placeholder='Type to get started...'
                 value={noteText}
                 onChange={handleChange}
+                maxLength={characterLimit}
             />
             <div className='note-footer'>
                 <button className='save' onClick={handleSaveClick}>
@@ -58,19 +64,19 @@ const AddNote = ({ handleAddNote }) => {
                 </button>
                 <div className='format-buttons'>
                     <button onClick={() => handleFormat('bold')}>
-                        <i className="fas fa-bold"></i>
+                        <b>B</b>
                     </button>
                     <button onClick={() => handleFormat('italic')}>
-                        <i className="fas fa-italic"></i>
+                        <i>I</i>
                     </button>
                     <button onClick={() => handleFormat('underline')}>
-                        <i className="fas fa-underline"></i>
+                        <u>U</u>
                     </button>
                     <button onClick={() => handleFormat('bullet')}>
-                        <i className="fas fa-list-ul"></i>
+                        &bull; Bullets
                     </button>
                 </div>
-                <button className='clear' onClick={() => { setNoteTitle(''); setNoteText(''); }}>
+                <button className='clear' onClick={handleClear}>
                     Clear
                 </button>
             </div>

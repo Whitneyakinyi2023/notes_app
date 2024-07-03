@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import './Profile.css';
 
-const Profile = () => {
+const Profile = ({ profilePicture, setProfilePicture }) => {
     const [username, setUsername] = useState('JohnDoe');
     const [email, setEmail] = useState('john.doe@example.com');
     const [bio, setBio] = useState('This is a short bio');
-    const [profilePicture, setProfilePicture] = useState('path/to/profile-picture.jpg');
 
     const handleProfilePictureChange = (event) => {
         const file = event.target.files[0];
         if (file) {
             setProfilePicture(URL.createObjectURL(file));
         }
+    };
+
+    const handleSaveProfile = () => {
+        // Implement logic to save the profile details
+        alert('Profile saved successfully!');
     };
 
     return (
@@ -46,6 +50,7 @@ const Profile = () => {
                     ></textarea>
                 </div>
             </div>
+            <button className="save-button" onClick={handleSaveProfile}>Save</button>
             <div className="account-settings">
                 <h3>Account Settings</h3>
                 <button>Change Password</button>

@@ -1,12 +1,16 @@
 import React from 'react';
 import './LandingPage.css';
 
-const LandingPage = () => {
+const LandingPage = ({ onLogin, onSignup }) => {
     return (
         <div className="landing-page">
             <header className="landing-header">
-                <h1>SomaSoma &#128214; </h1>
+                <h1>SomaSoma &#128214;</h1>
                 <p>Enhance your learning experience with integrated tools and seamless functionalities.</p>
+                <div className="buttons">
+                    <button onClick={onLogin}>Login</button>
+                    <button onClick={onSignup}>Signup</button>
+                </div>
                 <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
                     Explore More
                 </button>

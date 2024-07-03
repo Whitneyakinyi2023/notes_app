@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-export default function Navbar({ isAuthenticated }) {
+export default function Navbar({ isAuthenticated, profilePicture }) {
     return (
         <nav className="nav">
             <a href="/" className="site-title">SomaSoma</a>
@@ -11,10 +11,13 @@ export default function Navbar({ isAuthenticated }) {
                 {isAuthenticated ? (
                     <>
                         <li><Link to="/notes">Notes</Link></li>
-                        <li><Link to="/pdf-viewer">PDF Viewer</Link></li>
                         <li><Link to="/profile">Profile</Link></li>
                         <li><Link to="/logout">Logout</Link></li>
-                        <li><Link to="/ChatComponent">Chat with AI</Link></li>
+                        <li className="nav-profile-picture">
+                            <Link to="/profile">
+                                <img src={profilePicture} alt="Profile" />
+                            </Link>
+                        </li>
                     </>
                 ) : (
                     <>
