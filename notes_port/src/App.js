@@ -6,6 +6,7 @@ import Signup from './Signup';
 import Login from './Login';
 import PDFViewer from './PDFViewer';
 import Navbar from './Navbar';
+import Search from './Search';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Login.css';
 import { ThemeProvider } from './ThemeContext';
@@ -14,9 +15,14 @@ import Profile from './Profile';
 import LandingPage from './LandingPage';
 import AddNote from './AddNote';
 
-const Home = ({ isAuthenticated, notes, deleteNote }) => {
+const Home = ({ isAuthenticated, notes, deleteNote, handleSearchNote }) => {
   if (isAuthenticated) {
-    return <NotesList notes={notes} deleteNote={deleteNote} />;
+    return (
+      <>
+        <Search handleSearchNote={handleSearchNote} />
+        <NotesList notes={notes} deleteNote={deleteNote} />
+      </>
+    );
   } else {
     return <LandingPage />;
   }
@@ -55,6 +61,7 @@ const App = () => {
   ]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const savedNotes = JSON.parse(localStorage.getItem('react-notes-app-data'));
@@ -96,13 +103,32 @@ const App = () => {
     setIsAuthenticated(false);
   };
 
+  const handleSearchNote = (term) => {
+    setSearchTerm(term);
+  };
+
+  const filteredNotes = notes.filter(note =>
+    note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    note.text.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <ThemeProvider>
       <Router>
         <div className='container'>
           <Navbar isAuthenticated={isAuthenticated} />
           <Routes>
-            <Route path="/" element={<Home isAuthenticated={isAuthenticated} notes={notes} deleteNote={deleteNote} />} />
+            <Route
+              path="/"
+              element={
+                <Home
+                  isAuthenticated={isAuthenticated}
+                  notes={filteredNotes}
+                  deleteNote={deleteNote}
+                  handleSearchNote={handleSearchNote}
+                />
+              }
+            />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/signup" element={<Signup onSignup={handleSignup} />} />
             <Route path="/pdf-viewer" element={<PDFViewer />} />
@@ -113,13 +139,11 @@ const App = () => {
           <div className="add-note-container">
             <AddNote handleAddNote={addNote} />
           </div>
-          {/* Remove redundant NotesList here */}
           <div className="youtube-api">
             {/* Placeholder for YouTube API Integration */}
           </div>
         </div>
       </Router>
-      {/* Keep NotesList rendered inside Home component */}
     </ThemeProvider>
   );
 };

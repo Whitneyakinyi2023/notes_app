@@ -14,6 +14,7 @@ export default function Navbar({ isAuthenticated }) {
                         <li><Link to="/pdf-viewer">PDF Viewer</Link></li>
                         <li><Link to="/profile">Profile</Link></li>
                         <li><Link to="/logout">Logout</Link></li>
+                        <li><Link to="/ChatComponent">Chat with AI</Link></li>
                     </>
                 ) : (
                     <>
