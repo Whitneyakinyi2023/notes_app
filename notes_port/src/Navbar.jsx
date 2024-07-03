@@ -11,9 +11,12 @@ export default function Navbar({ isAuthenticated, profilePicture }) {
                 {isAuthenticated ? (
                     <>
                         <li><Link to="/notes">Notes</Link></li>
+                        <li><Link to="/LandingPage">About</Link></li>
                         <li><Link to="/profile">Profile</Link></li>
                         <li><Link to="/logout">Logout</Link></li>
+                        <li><Link to="/NoteTakingTips">Tips</Link></li>
                         <li className="nav-profile-picture">
+
                             <Link to="/profile">
                                 <img src={profilePicture} alt="Profile" />
                             </Link>

@@ -27,8 +27,33 @@ const AddNote = ({ handleAddNote }) => {
     };
 
     const handleFormat = (format) => {
-        // Implement formatting logic based on 'format' parameter
-        // Example: Modify noteText based on format (bold, italic, underline, bullet)
+        let formattedText = noteText;
+
+        switch (format) {
+            case 'bold':
+                formattedText = toggleFormat(noteText, '**');
+                break;
+            case 'italic':
+                formattedText = toggleFormat(noteText, '_');
+                break;
+            case 'underline':
+                formattedText = toggleFormat(noteText, '<u>', '</u>');
+                break;
+            case 'bullet':
+                formattedText = `• ${noteText.replace(/\n/g, '\n• ')}`;
+                break;
+            default:
+                break;
+        }
+
+        setNoteText(formattedText);
+    };
+
+    const toggleFormat = (text, tagStart, tagEnd = tagStart) => {
+        if (text.startsWith(tagStart) && text.endsWith(tagEnd)) {
+            return text.substring(tagStart.length, text.length - tagEnd.length);
+        }
+        return `${tagStart}${text}${tagEnd}`;
     };
 
     const handleClear = () => {
