@@ -23,6 +23,7 @@ export default function Navbar({ isAuthenticated, profilePicture }) {
                     <>
                         <li><Link to="/login">Login</Link></li>
                         <li><Link to="/signup">Sign Up</Link></li>
+                        <li><Link to="/LandingPage">About</Link></li>
                     </>
                 )}
             </ul>
