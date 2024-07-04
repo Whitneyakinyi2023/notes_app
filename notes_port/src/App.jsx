@@ -12,14 +12,14 @@ import NotesList from './NotesList';
 import Profile from './Profile';
 import LandingPage from './LandingPage';
 import AddNote from './AddNote';
-import ProductivityTechnique from './ProductivityTechnique'; // Import the ProductivityTechnique component
-import NoteTakingTips from './NoteTakingTips'; // Import the NoteTakingTips component
-import { auth, firestore } from './firebase';
+import ProductivityTechnique from './ProductivityTechnique';
+import NoteTakingTips from './NoteTakingTips';
+import { auth } from './firebase'; // Remove firestore import
 
-const Home = ({ notes, deleteNote, handleSearchNote }) => (
+const Home = ({ LandingPage, notes, handleAddNote, handleDeleteNote, handleSearchNote }) => (
   <>
     <Search handleSearchNote={handleSearchNote} />
-    <NotesList notes={notes} deleteNote={deleteNote} />
+    <NotesList notes={notes} handleAddNote={handleAddNote} handleDeleteNote={handleDeleteNote} />
   </>
 );
 
@@ -31,28 +31,22 @@ const App = () => {
   const [profilePicture, setProfilePicture] = useState('path/to/profile-picture.jpg');
 
   useEffect(() => {
+    const storedNotes = JSON.parse(localStorage.getItem('notes')) || [];
+    setNotes(storedNotes);
+    setLoading(false);
+
     const unsubscribe = auth.onAuthStateChanged(user => {
       setIsAuthenticated(!!user);
-      setLoading(false);
     });
+
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const snapshot = await firestore.collection('notes').get();
-        const loadedNotes = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setNotes(loadedNotes);
-      } catch (error) {
-        console.error('Error fetching notes: ', error);
-      }
-    };
+    localStorage.setItem('notes', JSON.stringify(notes));
+  }, [notes]);
 
-    fetchNotes();
-  }, []);
-
-  const addNote = async (title, text) => {
+  const addNote = (title, text) => {
     const currentDate = new Date();
     const formattedDate = `${currentDate.toLocaleString('en-US', { weekday: 'long' })}, ${currentDate.toLocaleString('en-US', { month: 'long' })} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
     const newNote = {
@@ -63,32 +57,17 @@ const App = () => {
       time: currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
 
-    try {
-      const docRef = await firestore.collection('notes').add(newNote);
-      const savedNote = { id: docRef.id, ...newNote };
-      setNotes(prevNotes => [...prevNotes, savedNote]);
-    } catch (error) {
-      console.error('Error adding document: ', error);
-    }
+    setNotes(prevNotes => [...prevNotes, newNote]);
   };
 
-  const deleteNote = async (idToDelete) => {
-    try {
-      await firestore.collection('notes').doc(idToDelete).delete();
-      setNotes(prevNotes => prevNotes.filter(note => note.id !== idToDelete));
-    } catch (error) {
-      console.error('Error removing document: ', error);
-    }
+  const deleteNote = (idToDelete) => {
+    setNotes(prevNotes => prevNotes.filter(note => note.id !== idToDelete));
   };
 
   const handleSignup = () => setIsAuthenticated(true);
   const handleLogin = () => setIsAuthenticated(true);
   const handleLogout = () => {
-    auth.signOut().then(() => {
-      setIsAuthenticated(false);
-    }).catch(error => {
-      console.error('Error signing out: ', error);
-    });
+    setIsAuthenticated(false);
   };
 
   const handleSearchNote = (term) => setSearchTerm(term);
@@ -114,7 +93,8 @@ const App = () => {
                 isAuthenticated ? (
                   <Home
                     notes={filteredNotes}
-                    deleteNote={deleteNote}
+                    handleAddNote={addNote}
+                    handleDeleteNote={deleteNote}
                     handleSearchNote={handleSearchNote}
                   />
                 ) : (
@@ -126,9 +106,7 @@ const App = () => {
             <Route path="/signup" element={<Signup onSignup={handleSignup} />} />
             <Route path="/profile" element={<Profile profilePicture={profilePicture} setProfilePicture={setProfilePicture} />} />
             <Route path="/logout" element={<button onClick={handleLogout}>Logout</button>} />
-            <Route path="/productivity-tips" element={<ProductivityTipsPage />} />
-            <Route path="/note-taking-tips" element={<NoteTakingTipsPage />} />
-            <Route path="*" element={<Navigate to="/" />} />
+            {/* Other routes */}
           </Routes>
           {isAuthenticated && (
             <>
@@ -137,7 +115,7 @@ const App = () => {
               </div>
               <div className="recent-notes">
                 <h2>Recent Notes</h2>
-                <NotesList notes={filteredNotes.slice(0, 5)} deleteNote={deleteNote} />
+                <NotesList notes={filteredNotes.slice(0, 6)} handleDeleteNote={deleteNote} />
               </div>
             </>
           )}
@@ -146,30 +124,5 @@ const App = () => {
     </ThemeProvider>
   );
 };
-
-const ProductivityTipsPage = () => (
-  <div className="container">
-    <h1>Boost Your Productivity</h1>
-    <ProductivityTechnique
-      title="Eat the Frog"
-      description='"Eat the Frog" is a productivity technique that encourages tackling the most important or challenging task first thing in the morning. By writing down your tasks the night before, you can identify your "frog" and prioritize it for the next day.'
-      buttonText="Learn More"
-      onClick={() => alert('Eat the Frog means tackling your most important task first. Write down your tasks the night before and identify your "frog" for the next day.')}
-    />
-    <ProductivityTechnique
-      title="Pomodoro Technique"
-      description="The Pomodoro Technique is a time management method that involves working in focused intervals, usually 25 minutes, followed by a short break. Use note-taking to jot down tasks and track your progress during each Pomodoro session."
-      buttonText="Learn More"
-      onClick={() => alert('The Pomodoro Technique involves working in 25-minute intervals, followed by a 5-minute break. Use note-taking to track tasks and progress.')}
-    />
-  </div>
-);
-
-const NoteTakingTipsPage = () => (
-  <div className="container">
-    <h1>Effective Note-Taking Tips</h1>
-    <NoteTakingTips />
-  </div>
-);
 
 export default App;

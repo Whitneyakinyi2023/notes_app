@@ -1,9 +1,13 @@
 /* General Styles */
 body {
   font-family: Arial, sans-serif;
-   margin: 0;
+  margin: 0;
   padding: 0;
-      background-image: url(https://img.freepik.com/premium-photo/black-3d-illustration-back-school-product-display-podium-stand-side-with-pencils-books_611870-3050.jpg?w=740);
+  background-image: url(https://img.freepik.com/premium-photo/black-3d-illustration-back-school-product-display-podium-stand-side-with-pencils-books_611870-3050.jpg?w=740);
+}
+
+.recent-notes {
+  color: #f8f9fa;
 }
 
 .nav {

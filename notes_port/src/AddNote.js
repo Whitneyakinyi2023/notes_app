@@ -3,106 +3,48 @@ import React, { useState } from 'react';
 const AddNote = ({ handleAddNote }) => {
     const [noteTitle, setNoteTitle] = useState('');
     const [noteText, setNoteText] = useState('');
-    const characterLimit = 1000;
+    const characterLimit = 500;
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         if (name === 'title') {
             setNoteTitle(value);
         } else if (name === 'text') {
-            setNoteText(value.slice(0, characterLimit));
+            if (value.length <= characterLimit) {
+                setNoteText(value);
+            }
         }
     };
 
     const handleSaveClick = () => {
-        const trimmedTitle = noteTitle.trim();
-        const trimmedText = noteText.trim();
-        if (trimmedTitle && trimmedText) {
-            handleAddNote(trimmedTitle, trimmedText);
+        if (noteTitle.trim().length > 0 && noteText.trim().length > 0) {
+            handleAddNote(noteTitle.trim(), noteText.trim());
             setNoteTitle('');
             setNoteText('');
-        } else {
-            alert('Please enter both title and note content.');
         }
-    };
-
-    const handleFormat = (format) => {
-        let formattedText = noteText;
-
-        switch (format) {
-            case 'bold':
-                formattedText = toggleFormat(noteText, '**');
-                break;
-            case 'italic':
-                formattedText = toggleFormat(noteText, '_');
-                break;
-            case 'underline':
-                formattedText = toggleFormat(noteText, '<u>', '</u>');
-                break;
-            case 'bullet':
-                formattedText = `• ${noteText.replace(/\n/g, '\n• ')}`;
-                break;
-            default:
-                break;
-        }
-
-        setNoteText(formattedText);
-    };
-
-    const toggleFormat = (text, tagStart, tagEnd = tagStart) => {
-        if (text.startsWith(tagStart) && text.endsWith(tagEnd)) {
-            return text.substring(tagStart.length, text.length - tagEnd.length);
-        }
-        return `${tagStart}${text}${tagEnd}`;
-    };
-
-    const handleClear = () => {
-        setNoteTitle('');
-        setNoteText('');
     };
 
     return (
-        <div className='note new'>
-            <label htmlFor='title'>Title:</label>
+        <div className="note new">
             <input
-                type='text'
-                name='title'
-                id='title'
-                placeholder='Title'
+                type="text"
+                name="title"
+                placeholder="Title"
                 value={noteTitle}
                 onChange={handleChange}
             />
-            <label htmlFor='text'>Note:</label>
             <textarea
-                name='text'
-                id='text'
-                rows='8'
-                cols='10'
-                placeholder='Type to get started...'
+                name="text"
+                rows="8"
+                cols="10"
+                placeholder="Type to add a note"
                 value={noteText}
                 onChange={handleChange}
-                maxLength={characterLimit}
-            />
-            <div className='note-footer'>
-                <button className='save' onClick={handleSaveClick}>
+            ></textarea>
+            <div className="note-footer">
+                <small>{characterLimit - noteText.length} Remaining</small>
+                <button className="save" onClick={handleSaveClick}>
                     Save
-                </button>
-                <div className='format-buttons'>
-                    <button onClick={() => handleFormat('bold')}>
-                        <b>B</b>
-                    </button>
-                    <button onClick={() => handleFormat('italic')}>
-                        <i>I</i>
-                    </button>
-                    <button onClick={() => handleFormat('underline')}>
-                        <u>U</u>
-                    </button>
-                    <button onClick={() => handleFormat('bullet')}>
-                        &bull; Bullets
-                    </button>
-                </div>
-                <button className='clear' onClick={handleClear}>
-                    Clear
                 </button>
             </div>
         </div>
