@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import './App.css';
 import Signup from './Signup';
@@ -14,9 +14,9 @@ import LandingPage from './LandingPage';
 import AddNote from './AddNote';
 import ProductivityTechnique from './ProductivityTechnique';
 import NoteTakingTips from './NoteTakingTips';
-import { auth } from './firebase'; // Remove firestore import
+import { auth } from './firebase';
 
-const Home = ({ LandingPage, notes, handleAddNote, handleDeleteNote, handleSearchNote }) => (
+const Home = ({ notes, handleAddNote, handleDeleteNote, handleSearchNote }) => (
   <>
     <Search handleSearchNote={handleSearchNote} />
     <NotesList notes={notes} handleAddNote={handleAddNote} handleDeleteNote={handleDeleteNote} />
@@ -66,9 +66,7 @@ const App = () => {
 
   const handleSignup = () => setIsAuthenticated(true);
   const handleLogin = () => setIsAuthenticated(true);
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-  };
+  const handleLogout = () => setIsAuthenticated(false);
 
   const handleSearchNote = (term) => setSearchTerm(term);
 

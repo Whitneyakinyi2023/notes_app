@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import './Login.css'; // Custom styles
-import { auth } from './firebase'; // Import auth from your firebase setup
+import './Login.css';
+import { auth } from './firebase';
 
 const Login = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const [resetEmail, setResetEmail] = useState('');
+    const [error, setError] = useState('');
     const [resetSuccess, setResetSuccess] = useState(false);
     const [showResetPassword, setShowResetPassword] = useState(false);
 
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         setError('');
 
         if (!email || !password) {
-            setError('All fields are required.');
+            setError('Please enter both email and password.');
             return;
         }
 
@@ -23,7 +23,7 @@ const Login = ({ onLogin }) => {
             await auth.signInWithEmailAndPassword(email, password);
             onLogin();
         } catch (err) {
-            setError('Invalid email or password.');
+            setError('Invalid email or password. Please try again.');
         }
     };
 
@@ -60,7 +60,7 @@ const Login = ({ onLogin }) => {
                 </div>
                 {error && <div className="error-message">{error}</div>}
                 {!showResetPassword ? (
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleLogin}>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <input
