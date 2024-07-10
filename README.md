@@ -1,23 +1,23 @@
-#Notes App
-Description
+# Notes App
+## Description
 This Notes App is a React-based application designed to help users manage their notes efficiently. It includes features like user authentication, note searching, and recent notes display. The app uses Firebase for authentication and local storage for saving notes.
 
-Features
+## Features
 User Authentication: Signup, login, and logout functionalities.
 Note Management: Add, delete, and search notes.
 Profile Management: Update profile picture.
 Responsive Design: User-friendly interface with Bootstrap integration.
 Recent Notes: Display the most recent notes on the homepage.
-Installation
+## Installation
 Clone the repository:
 bash
 Copy code
-git clone https://github.com/your-username/notes-app.git
+git clone https://github.com/Whitneyakinyi2023/notes-app.git
 Navigate to the project directory:
 bash
 Copy code
 cd notes-app
-Install the dependencies:
+## Install the dependencies:
 bash
 Copy code
 npm install
@@ -38,7 +38,7 @@ Profile.js: User profile management component.
 LandingPage.js: Landing page component for unauthenticated users.
 AddNote.js: Component for adding new notes.
 ProductivityTechnique.js, NoteTakingTips.js: Additional pages for improving note-taking and productivity techniques.
-Dependencies
+## Dependencies
 React: Frontend library.
 React Router: For handling routing.
 Firebase: For user authentication.
@@ -48,7 +48,9 @@ Future Enhancements
 Implement Firestore for note storage.
 Add animations and improved UI/UX.
 Include more pages for productivity and note-taking tips.
-Contributing
+## Contributors
+1.Whitney Akinnyi
+2.Christopher Kahura
 Contributions are welcome! Please fork the repository and submit a pull request.
 
 License
