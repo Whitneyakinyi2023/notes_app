@@ -49,8 +49,10 @@ Implement Firestore for note storage.
 Add animations and improved UI/UX.
 Include more pages for productivity and note-taking tips.
 ## Contributors
-1.Whitney Akinnyi
+1.Whitney Akinyi
+
 2.Christopher Kahura
+
 Contributions are welcome! Please fork the repository and submit a pull request.
 
 License
